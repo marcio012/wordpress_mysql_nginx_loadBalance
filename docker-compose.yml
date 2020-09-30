@@ -14,7 +14,6 @@ services:
 
   wordpress1:
     image: wordpress:5.4.2-php7.2-apache
-    container_name: wordpress1
     volumes:
       - ./wordpress:/var/www/html
     environment:
@@ -27,74 +26,8 @@ services:
     restart: always
     depends_on:
       - db
-
-  wordpress2:
-    image: wordpress:5.4.2-php7.2-apache
-    container_name: wordpress2
-    volumes:
-      - ./wordpress:/var/www/html
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: user_name
-      WORDPRESS_DB_PASSWORD: user_pass
-      WORDPRESS_DB_NAME: db_name
-
-    links:
-      - db
-    restart: always
-    depends_on:
-      - db
-
-  wordpress3:
-    image: wordpress:5.4.2-php7.2-apache
-    container_name: wordpress3
-    volumes:
-      - ./wordpress:/var/www/html
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: user_name
-      WORDPRESS_DB_PASSWORD: user_pass
-      WORDPRESS_DB_NAME: db_name
-
-    links:
-      - db
-    restart: always
-    depends_on:
-      - db
-
-  wordpress4:
-    image: wordpress:5.4.2-php7.2-apache
-    container_name: wordpress4
-    volumes:
-      - ./wordpress:/var/www/html
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: user_name
-      WORDPRESS_DB_PASSWORD: user_pass
-      WORDPRESS_DB_NAME: db_name
-
-    links:
-      - db
-    restart: always
-    depends_on:
-      - db
-
-  wordpress5:
-    image: wordpress:5.4.2-php7.2-apache
-    container_name: wordpress5
-    volumes:
-      - ./wordpress:/var/www/html
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: user_name
-      WORDPRESS_DB_PASSWORD: user_pass
-      WORDPRESS_DB_NAME: db_name
-
-    links:
-      - db
-    restart: always
-    depends_on:
-      - db
+    deploy:
+      replicas: 5
 
   nginx:
     image: nginx:1.19.0
@@ -106,17 +39,8 @@ services:
       - 80:80
     depends_on:
       - "wordpress1"
-      - "wordpress2"
-      - "wordpress3"
-      - "wordpress4"
-      - "wordpress5"
-
     links:
       - "wordpress1"
-      - "wordpress2"
-      - "wordpress3"
-      - "wordpress4"
-      - "wordpress5"
 
 volumes:
   db:
