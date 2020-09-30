@@ -1,0 +1,120 @@
+version: "3.5"
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_pass
+      MYSQL_DATABASE: db_name
+      MYSQL_USER: user_name
+      MYSQL_PASSWORD: user_pass
+    restart: always
+
+  wordpress1:
+    image: wordpress:5.4.2-php7.2-apache
+
+    volumes:
+      - ./wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: user_name
+      WORDPRESS_DB_PASSWORD: user_pass
+      WORDPRESS_DB_NAME: db_name
+    links:
+      - db
+    restart: always
+    depends_on:
+      - db
+
+  wordpress2:
+    image: wordpress:5.4.2-php7.2-apache
+
+    volumes:
+      - ./wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: user_name
+      WORDPRESS_DB_PASSWORD: user_pass
+      WORDPRESS_DB_NAME: db_name
+
+    links:
+      - db
+    restart: always
+    depends_on:
+      - db
+
+  wordpress3:
+    image: wordpress:5.4.2-php7.2-apache
+
+    volumes:
+      - ./wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: user_name
+      WORDPRESS_DB_PASSWORD: user_pass
+      WORDPRESS_DB_NAME: db_name
+
+    links:
+      - db
+    restart: always
+    depends_on:
+      - db
+
+  wordpress4:
+    image: wordpress:5.4.2-php7.2-apache
+
+    volumes:
+      - ./wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: user_name
+      WORDPRESS_DB_PASSWORD: user_pass
+      WORDPRESS_DB_NAME: db_name
+
+    links:
+      - db
+    restart: always
+    depends_on:
+      - db
+
+  wordpress5:
+    image: wordpress:5.4.2-php7.2-apache
+
+    volumes:
+      - ./wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: user_name
+      WORDPRESS_DB_PASSWORD: user_pass
+      WORDPRESS_DB_NAME: db_name
+
+    links:
+      - db
+    restart: always
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.19.0
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./wordpress:/usr/share/nginx/html
+    ports:
+      - 80:80
+    depends_on:
+      - "wordpress1"
+      - "wordpress2"
+      - "wordpress3"
+      - "wordpress4"
+      - "wordpress5"
+    links:
+      - "wordpress1"
+      - "wordpress2"
+      - "wordpress3"
+      - "wordpress4"
+      - "wordpress5"
+
+volumes:
+  db:
+  wordpress:
