@@ -2,6 +2,7 @@ version: "3.5"
 services:
   db:
     image: mysql:5.7
+    container_name: mysql
     volumes:
       - db:/var/lib/mysql
     environment:
@@ -13,7 +14,7 @@ services:
 
   wordpress1:
     image: wordpress:5.4.2-php7.2-apache
-
+    container_name: wordpress1
     volumes:
       - ./wordpress:/var/www/html
     environment:
@@ -29,7 +30,7 @@ services:
 
   wordpress2:
     image: wordpress:5.4.2-php7.2-apache
-
+    container_name: wordpress2
     volumes:
       - ./wordpress:/var/www/html
     environment:
@@ -46,7 +47,7 @@ services:
 
   wordpress3:
     image: wordpress:5.4.2-php7.2-apache
-
+    container_name: wordpress3
     volumes:
       - ./wordpress:/var/www/html
     environment:
@@ -63,7 +64,7 @@ services:
 
   wordpress4:
     image: wordpress:5.4.2-php7.2-apache
-
+    container_name: wordpress4
     volumes:
       - ./wordpress:/var/www/html
     environment:
@@ -80,7 +81,7 @@ services:
 
   wordpress5:
     image: wordpress:5.4.2-php7.2-apache
-
+    container_name: wordpress5
     volumes:
       - ./wordpress:/var/www/html
     environment:
@@ -97,6 +98,7 @@ services:
 
   nginx:
     image: nginx:1.19.0
+    container_name: nginx
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./wordpress:/usr/share/nginx/html
@@ -108,6 +110,7 @@ services:
       - "wordpress3"
       - "wordpress4"
       - "wordpress5"
+
     links:
       - "wordpress1"
       - "wordpress2"
