@@ -3,3 +3,6 @@ wordpress
 .cache
 
 report*
+.idea
+.vscode
+*.csv
