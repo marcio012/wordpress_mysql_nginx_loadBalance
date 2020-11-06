@@ -13,9 +13,17 @@ services:
       TASK_DELAY_FROM: 5
       TASK_DELAY_TO: 30
       QUIET_MODE: "${QUIET_MODE:-false}"
+      # LOCUST_HEADLESS: "true"
+      # LOCUST_USERS: 10
+      # LOCUST_SPAWN_RATE: 1
+      # LOCUST_RUN_TIME: 60
+      # LOCUST_CSV: "true"
+      # LOCUST_PRINT_STATS: "false"
     # command: locust -f --headless -u 1000 -r 100 --run-time 1h30m --stop-timeout 99
     volumes:
       - ./locust:/locust
+    depends_on:
+      - "nginx"
 
   # slave:
   #   image: "grubykarol/locust:1.2.3-python3.9-alpine3.12"
@@ -57,8 +65,8 @@ services:
     restart: always
     depends_on:
       - db
-    # deploy:
-    #   replicas: 3
+    deploy:
+      replicas: 3
 
   nginx:
     image: nginx:1.19.0
