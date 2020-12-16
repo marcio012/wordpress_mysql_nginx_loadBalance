@@ -38,6 +38,8 @@ services:
   #     QUIET_MODE: "${QUIET_MODE:-false}"
   #   volumes:
   #     - ./locust:/locust
+  #   docker stack deploy --compose-file docker-compose.yml wordpress
+  #   docker stack rm wordpress
 
   db:
     image: mysql:5.7
