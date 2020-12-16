@@ -38,7 +38,7 @@ class TestBehaviour(TaskSet):
     @task(2)
     def task4(self):
         log("running task4 - Blog post com uma imagem de 300kb")
-        self.client.get("/?p=10")
+        self.client.get("/?p=1")
 
 
 class TestUser(HttpUser):
