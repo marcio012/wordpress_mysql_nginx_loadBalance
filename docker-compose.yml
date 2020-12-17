@@ -67,17 +67,8 @@ services:
     restart: always
     depends_on:
       - db
-    deploy:
-      mode: replicated
-      replicas: 3
-      labels: [APP=VOTING]
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 3
-        window: 120s
-      placement:
-        constraints: [node.role == manager]
+    # deploy:
+    #   replicas: 3
 
   nginx:
     image: nginx:1.19.0
@@ -95,3 +86,8 @@ services:
 volumes:
   db:
   wordpress:
+# docker stack deploy --compose-file docker-compose.yml wordpress
+# docker service scale wordpress_wordpress1=3
+# docker service ls
+# pumba --interval=2s --random --log-level=info kill --signal=SIGKILL "re2:^wordpress_wordpress"
+# docker service ls
